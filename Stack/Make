@@ -1,0 +1,6 @@
+build:
+	g++ Stack.h;
+	g++ Main.c;
+clean:
+	rm Stack.gch;
+	rm a.out;

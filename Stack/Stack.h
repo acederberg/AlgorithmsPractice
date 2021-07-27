@@ -91,11 +91,20 @@
 		return out;
 
 	}
+	bool pop(Stack* S, int how_many){
+		bool* out;
+		*out = 1;
+		for(int k = 0; k < how_many; k++){ 
+			*out &= pop(S);
+			if (!out){ break; }
+	       	}
+		return *out;
+	}
 
 # endif
 
 //----------------------------------------------------------------------------//
-// Stack with more features.
+// More features. Methods which go beyond the default methods but who extend the functionality of the stack without returning a stack.
 
 # ifndef SUPER
 # define SUPER
@@ -104,23 +113,23 @@
 	void resize(Stack *S);
 
 	// Functions
-//	int between(Stack *S, int min, int max){
-//		// Another algorithm with linear growth. Roughly exactly the same as the above, not sure how to design around this.
-//
-//		int count = 0;
-//		int* temp = S -> memory;
-//		while( 1 ){
-//			
-//			if ( !*temp ){ break;	
-//			} else if( *temp < max & min < *temp ){
-//				count++;
-//			}
-//			temp++;
-//
-//		}
-//		return count;
-//
-//	}
+	int between(Stack *S, int min, int max){
+		// Another algorithm with linear growth. Roughly exactly the same as the above, not sure how to design around this.
+
+		int count = 0;
+		int* temp = S -> memory;
+		while( 1 ){
+	
+			if ( !*temp ){ break;	
+			} else if( *temp < max & min < *temp ){
+				count++;
+			}
+			temp++;
+
+		}
+		return count;
+
+	}
 	void clear(Stack *S){ while( pop(S) ){} }
 	int  count(Stack *S, int value){
 		// Grows linearly with list size since the number of turns the while loop does is exactly the stack capacity.
@@ -134,26 +143,45 @@
 
 		}
 	}
-	void push(Stack* S, int* array, int length){
+	void insert(Stack* S, int position, int value){
+		// Linear growth in difference between top of stack and position in stack. Unlike linked lists which will take constant time (at the cost of memory).
+		// Move everything past position forward one.
+		int k = S -> index;
+		do {
+			S -> memory[k+1] = S -> memory[k];
+			k--;	
+		}
+	       	while ( !(k < position) );
+		
+		S -> memory[position] = value;
 
+	}
+	void push(Stack* S, int* array, int length){
+		// Grows linearly with the size of length.
 		int k = 0;
 		int* temp = array;
 		while (k < length){
 			if ( !push(S, *temp) ){
 				printf("\nExpanding stack -- continuing to insert values. Resized S:\n ");
 				resize(S);
-				show(S, 1);
 				printf("\n");
 				continue;
 			}
 			temp++; 
 			k++;
-
-			show(S, 1);
 		}
 
 	}
+	void remove(Stack *S, int position){
+		// Grows linearly like push.
+		int k = position;
+		do {
+			S -> memory[k] = S -> memory[k+1];
+			k++;
+		} while ( k < S->index );
+	}
 	void resize(Stack *S){
+		// Constant time complexity.
 		// Save old capacity for initialization after realloc.
 		int old = S -> capacity;
 		S -> capacity = 2 * old;
@@ -163,4 +191,5 @@
 		for (int k = old + 1; k < S->capacity; k++){ S -> memory[k] = ( int )NULL; }
 
 	}
+
 # endif

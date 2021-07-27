@@ -1,4 +1,4 @@
-# include "Stack.c"
+# include "Stack.h"
 
 void StackDemo(){
 
@@ -49,11 +49,38 @@ void SuperDemo(){
 
 	}
 
+	int mins[] = {0, 10, 100};
+	int maxs[] = {10, 100, 1000};
+
+	for (int k = 0; k < 3; k++){
+		printf("\nNow counting the number of entries between %i  and %i... count = %i\n", mins[k], maxs[k], between(S, mins[k], maxs[k]) );
+	}
+	
+}
+
+void SuperDemo0(){
+
+	Stack* S = newStack(8);
+	int values[] = {1,2,3,4,5};
+	push(S, values, 5);
+	show(S, 0);
+
+	printf("\nInserting a value in position 2.\n");
+	insert(S, 2, 444); 
+	show(S, 0);
+
+	printf("\nRemove that value.\n");
+	remove(S, 2);
+	show(S, 0);
+
+	printf("\nRemoved 3 values.\n");
+	pop(S, 3);
+	show(S, 0);
 }
 
 int main(){
 
-	SuperDemo();
+	SuperDemo0();
 	return 0;
 
 }

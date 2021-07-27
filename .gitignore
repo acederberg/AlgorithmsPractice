@@ -1,0 +1,5 @@
+*.swp
+*.gch
+*.out
+*.exe
+__pycache__
