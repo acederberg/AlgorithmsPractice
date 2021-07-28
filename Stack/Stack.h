@@ -144,6 +144,7 @@
 		}
 	}
 	void insert(Stack* S, int position, int value){
+		// Should try only using push and pop
 		// Linear growth in difference between top of stack and position in stack. Unlike linked lists which will take constant time (at the cost of memory).
 		// Move everything past position forward one.
 		int k = S -> index;
@@ -154,7 +155,7 @@
 	       	while ( !(k < position) );
 		
 		S -> memory[position] = value;
-
+		S -> index++;
 	}
 	void push(Stack* S, int* array, int length){
 		// Grows linearly with the size of length.
@@ -173,12 +174,17 @@
 
 	}
 	void remove(Stack *S, int position){
+		// Should try only using push and pop.
 		// Grows linearly like push.
 		int k = position;
 		do {
 			S -> memory[k] = S -> memory[k+1];
+			show(S, 1);
 			k++;
-		} while ( k < S->index );
+		} while ( !(k > S->index) );
+
+		S -> memory[ S->index ] = ( int )NULL;
+		S -> index--;
 	}
 	void resize(Stack *S){
 		// Constant time complexity.
@@ -191,5 +197,5 @@
 		for (int k = old + 1; k < S->capacity; k++){ S -> memory[k] = ( int )NULL; }
 
 	}
-
+	
 # endif

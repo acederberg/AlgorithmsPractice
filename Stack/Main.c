@@ -63,19 +63,19 @@ void SuperDemo0(){
 	Stack* S = newStack(8);
 	int values[] = {1,2,3,4,5};
 	push(S, values, 5);
-	show(S, 0);
+	show(S, 1);
 
 	printf("\nInserting a value in position 2.\n");
 	insert(S, 2, 444); 
-	show(S, 0);
+	show(S, 1);
 
 	printf("\nRemove that value.\n");
 	remove(S, 2);
-	show(S, 0);
+	show(S, 1);
 
 	printf("\nRemoved 3 values.\n");
 	pop(S, 3);
-	show(S, 0);
+	show(S, 1);
 }
 
 int main(){
