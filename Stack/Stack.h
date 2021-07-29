@@ -15,10 +15,10 @@
 	// Should probably worry about wrapping.
 	// See this: https://wiki.sei.cmu.edu/confluence/display/c/MEM07-C.+Ensure+that+the+arguments+to+calloc%28%29%2C+when+multiplied%2C+do+not+wrap
 	Stack* newStack(int capacity){
-		
+
 		// Malloc space so not destroyed.
 		Stack* S = ( Stack * )malloc( sizeof(Stack) );
-		
+
 		S -> capacity = capacity;
 		S -> index = -1;
 
@@ -29,7 +29,7 @@
 	}
 
 	void show(Stack* S, bool header){
-		
+
 		if (header){
 			printf(
 				"capacity = %i\tindex = %i\t",
@@ -94,7 +94,7 @@
 	bool pop(Stack* S, int how_many){
 		bool* out;
 		*out = 1;
-		for(int k = 0; k < how_many; k++){ 
+		for(int k = 0; k < how_many; k++){
 			*out &= pop(S);
 			if (!out){ break; }
 	       	}
@@ -113,50 +113,10 @@
 	void resize(Stack *S);
 
 	// Functions
-	int between(Stack *S, int min, int max){
-		// Another algorithm with linear growth. Roughly exactly the same as the above, not sure how to design around this.
-
-		int count = 0;
-		int* temp = S -> memory;
-		while( 1 ){
-	
-			if ( !*temp ){ break;	
-			} else if( *temp < max & min < *temp ){
-				count++;
-			}
-			temp++;
-
-		}
-		return count;
-
-	}
+	int between(Stack *S, int min, int max);
 	void clear(Stack *S){ while( pop(S) ){} }
-	int  count(Stack *S, int value){
-		// Grows linearly with list size since the number of turns the while loop does is exactly the stack capacity.
-		int out = 0;
-		int* temp = S -> memory;
-		while( 1 ){
-			
-			if ( !*temp ){ return out;	
-			} else if( *temp == value ){ out++; }
-			temp++;
-
-		}
-	}
-	void insert(Stack* S, int position, int value){
-		// Should try only using push and pop
-		// Linear growth in difference between top of stack and position in stack. Unlike linked lists which will take constant time (at the cost of memory).
-		// Move everything past position forward one.
-		int k = S -> index;
-		do {
-			S -> memory[k+1] = S -> memory[k];
-			k--;	
-		}
-	       	while ( !(k < position) );
-		
-		S -> memory[position] = value;
-		S -> index++;
-	}
+	int count(Stack *S, int value);
+	void insert(Stack* S, int position, int value);
 	void push(Stack* S, int* array, int length){
 		// Grows linearly with the size of length.
 		int k = 0;
@@ -168,34 +128,22 @@
 				printf("\n");
 				continue;
 			}
-			temp++; 
+			temp++;
 			k++;
 		}
 
 	}
-	void remove(Stack *S, int position){
-		// Should try only using push and pop.
-		// Grows linearly like push.
-		int k = position;
-		do {
-			S -> memory[k] = S -> memory[k+1];
-			show(S, 1);
-			k++;
-		} while ( !(k > S->index) );
-
-		S -> memory[ S->index ] = ( int )NULL;
-		S -> index--;
-	}
+	void remove(Stack *S, int position);
 	void resize(Stack *S){
 		// Constant time complexity.
 		// Save old capacity for initialization after realloc.
 		int old = S -> capacity;
 		S -> capacity = 2 * old;
 		S -> memory = ( int * )realloc( S -> memory, S->capacity * sizeof(int) );
-		
+
 		// Initialize because realloc doesn't.
 		for (int k = old + 1; k < S->capacity; k++){ S -> memory[k] = ( int )NULL; }
 
 	}
-	
+
 # endif
