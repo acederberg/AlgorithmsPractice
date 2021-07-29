@@ -14,9 +14,9 @@ void StackDemo(){
 	printf("\nRemoving some integers from the stack...\n");
 	pop(S);
 	pop(S);
-	show(S, 1);
 
 	printf("\nFilling the remaining stack with an array...\n");
+	show(S, 1);
 
 	int values[] = {1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987} ;
 	int *temp = values;
@@ -32,10 +32,12 @@ void StackDemo(){
 void SuperDemo(){
 
 	Stack* S = newStack(8);
+	show(S, 1);
 
 	printf("\nFilling a stack with Lucas numbers...\n");
 	int values[] = {2,1,3,4,7,11,18,29,47,86};
 	push(S, values, 10);
+	show(S, 1);
 
 	for (int k = 0; k < 2; k++){
 
@@ -46,6 +48,7 @@ void SuperDemo(){
 		printf("\nInserting a few more numbers to test `count`.\n");
 		int more_values[] = {1,2,3,4,5,1,3,4,8,3,1,4,62,3,4,1};
 		push(S, more_values, sizeof(more_values) / sizeof(int));
+		show(S, 1);
 
 	}
 
@@ -54,6 +57,7 @@ void SuperDemo(){
 
 	for (int k = 0; k < 3; k++){
 		printf("\nNow counting the number of entries between %i  and %i... count = %i\n", mins[k], maxs[k], between(S, mins[k], maxs[k]) );
+		show(S, 1);
 	}
 	
 }
@@ -80,7 +84,7 @@ void SuperDemo0(){
 
 int main(){
 
-	SuperDemo0();
+	SuperDemo();
 	return 0;
 
 }
