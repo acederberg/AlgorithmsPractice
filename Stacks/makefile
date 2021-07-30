@@ -14,8 +14,11 @@ build_sorting:
 	g++ Sorting.h -o Build/Sorting.h.gch;
 	g++ SortingMain.c -o Build/b.out;
 clean:
-	rm -r Build;
-main:
+	
+	[ -d Build ] && rm -r Build
+	python3 cleanup.py Stacks	
+
+main: 
 	g++ Main.c -o Build/a.out;
 run:
 	@echo "\nRunning compiled Main.c.\n";
