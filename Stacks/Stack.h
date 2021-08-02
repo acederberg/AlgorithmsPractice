@@ -59,10 +59,10 @@
 	bool push(Stack* S, int k){
 		// Return true or false depending on success.
 		// Append to the top of the stack depending if there is space. Will use bool return value to make an `autopush` function which will double the space allocated.
-			S -> index++;
-		bool out = S->index < S->capacity;
+		bool out = S->index + 1 < S->capacity;
 
 		if (out){
+			S -> index++;
 			S -> top = &( S -> memory[S->index] );
 			*S -> top = k;
 		}
@@ -73,17 +73,18 @@
 
 	bool pop(Stack* S){
 
-		bool out = !(S->index < 0);
+		bool out = S->index > -1;
 
 		if (out){
 			// Nullify because important for looping. Decrement.
 			S -> memory[S->index] = ( int )NULL;
 			S -> index--;
 			S -> top = &( S -> memory[S->index] );
-		}
-		else{
-			printf("HERE\n");
-			S -> top = NULL;
+			if ( S->index == -1 ){
+				printf("HERE\n");
+				S -> top = (int *)NULL;
+				printf(" THERE\n");
+			}
 		}
 		return out;
 
@@ -156,6 +157,12 @@
 			else{ return k; }
 		}
 		return k;	
+
+		int* count; *count = 0;
+		while( pop(temp) ){
+			if ( !(min > *temp->top) && !(max < *temp->top) ){ *count++; }
+		}
+		return *count;	
 	};
 	int count(Stack *S, int value){
 		Stack *temp = copy(S);
@@ -193,6 +200,7 @@
 		}
 		return true;
 	}
+	void insert(Stack* S, int position, int value);
 	void push(Stack* S, int* array, int length){
 		// Grows linearly with the size of length.
 		int k = 0;

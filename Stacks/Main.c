@@ -54,6 +54,7 @@ void SuperDemo(){
 
  	}
 
+<<<<<<< HEAD
  	int mins[] = {0, 10, 100};
  	int maxs[] = {10, 100, 1000};
 
@@ -62,6 +63,16 @@ void SuperDemo(){
  		show(S, 1);
  	}
 
+=======
+// 	int mins[] = {0, 10, 100};
+// 	int maxs[] = {10, 100, 1000};
+//
+// 	for (int k = 0; k < 3; k++){
+// 		printf("\nNow counting the number of entries between %i  and %i... count = %i\n", mins[k], maxs[k], between(S, mins[k], maxs[k]) );
+// 		show(S, 1);
+// 	}
+//
+>>>>>>> refs/remotes/origin/main
 }
 
 // void SuperDemo0(){

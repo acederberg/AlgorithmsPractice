@@ -1,110 +1,141 @@
 # include "Stack.h"
 
-# ifndef STACKSORT
-# define STACKSORT
+# ifndef SORTING
+# define SORTING
 
-// Sort in-place the memory array.
-void naiveSort(Stack* S){
+Stack* newGolden(int size){
 	
-	int temp;
+	Stack* S = newStack(size);
+	push(S, 1);
+	int last, before;
+	last = 1;
+	do{
+		before = *S->top;
 
-	for (int k = 0; !(k > S->index) ; k++ ){
-		printf("\n-----------------------\nk = %i\n", k);
-		for(int j = 0; j < k; j++){
-		
-			printf("j = %i\t", j);
-			if ( S->memory[j] < S->memory[k] ){
-				printf("Sorting\t");
-				temp = S -> memory[k];
-				S -> memory[k] = S -> memory[j];
-				S -> memory[j] = temp;
+		if ( !( push(S, *S->top + last) ) ){ break; }
+		last = before;
+	}
+	while( true );
+
+	return S;
+}
+
+Stack* invert(Stack* S){
+
+	Stack* temp = copy( S );
+	Stack* T = newStack( S->capacity );
+	
+	while(temp -> top){
+		push(T, *temp->top);
+		pop(temp);
+	}
+	
+	destroy(temp);
+	
+	return T;
+
+}
+
+bool is_ascending(Stack* S){
+	
+	Stack* temp = copy(S);
+	show(temp, 1);
+	int last;
+       	last = *temp->top;
+	pop(temp);
+
+	do{
+		if(temp->top){
+			if ( !( last > *temp->top ) ){ 
+				destroy(temp);
+				return false; 
 			}
-
+			last = *temp->top;
 		}
 	}
+	while( pop(temp) );
 
+	destroy(temp);
+
+	return true;
 }
 
-// --------------------------------------------------------------
+int empty(Stack** J){
 
-// Not necessary, but it useful. 
-// Would be coold to sort using more than three. Could realloc.
-struct Game{
+	for( int k = 0; k < 3; k++ ){
 
-	// Things well need to remember for the game.
-	// Keep tract of empty columns, size, capacity, etc
-	bool hasmt[3];
-	int size;
-	int capacity;
-	int last; //index of the last moved column
-	Stack* one;
-	Stack* two;
-	Stack* game[3];
+		if ( !J[k] -> top ){return k; }
 
-};
+	}
 
-typedef struct Game Game;
+	return -1;
+}
+int nonempty(Stack** J, int ignore){
 
-// Make a new Game struct
-Game* newGame(Stack* S){
-
-	Game* G = (Game *)malloc( sizeof(Game) );
-	G -> last = 0;
-	G -> hasmt[0], G -> hasmt[1], G -> hasmt[2] = true, false, false;
-	G -> size = 3;
-	G -> capacity = S-> capacity;
-	G -> game[0] = S;
-	G -> game[1] = newStack( S->capacity );
-	G -> game[2] = newStack( S->capacity );
+	for( int k = 0; k < 3; k++){
 		
-//	printf("size = %i\n", G -> size);
-	
-	return G;
+		if ( k != ignore && J[k]->top ){ return k; }
 
-}
+	}
 
-void show(Game* G){
-	for(int k = 0; k < G->size; k++){
-		show( G -> game[k], 0 );
-	}
-}
-// If a header arguement is given at all prints header. If true, prints headers for stacks
-void show(Game* G, bool header){	
-	printf("size = %i,\tlast = %p,\tcapacity = %i.\n", G->size, G->last, G->capacity);
-	for(int k = 0; k < G->size; k++){
-		show( G -> game[k], header );
-	}	
-}
-void mem(Game* G){ for(int k = 0; k < G->size; k++){ mem( G -> game[k] ); }
-}
-int empty(Game* G){
-	// return index of empty if exists else -1.
-	for (int k = 0; k < G -> size; k++ ){	
-		if ( G -> hasmt[k] ){ return k; }
-	}
 	return -1;
 }
-int fillWith(Game* G, int column){
-	// column is the output of empty
-	for(int k = 0; k < G -> size; k++){
-		if ( k != column & k != G -> last ){
-			return k;
-			break;
-		}
-	}
-	return -1;
-}
-void fill(Game* G, int column){
-	// Rule two as in my notes
-	fillWith( G, column );
-}	
-void move(Game* G, Stack* firstColumn, Stack* secondColumn){
-	// Rule one as in my notes. `turn` will hold on to distances and determine firstcolumn and second column.
+int exchange(Stack** J){
+
+	int max = 0;
+	int diff, sgn;
+	int index;
+
+	for (int k = 0; k < 3; k++ ){
+		
+		diff = *J[ k%3 ]->top - *J[ k%3 + 1 ]->top;
+		sgn = ( diff>0 ) - (diff<0);	
 			
-	return;
-}
-void turn(Game* G){
+		if ( diff * sgn > max ){ 
+			max = diff;
+			index = k;
+		}
+		
+	}
 
-	return;
+
+	
+
 }
+
+void sort(Stack* S){
+
+	Stack* J[3];
+	J[0] = S;
+	J[1] = newStack( S->capacity );
+	J[2] = newStack( S->capacity );
+	int mt = 1;
+	int last = 0;
+	int best = 0;
+
+	while ( true ){
+	
+		
+		if (mt > -1){ 
+			
+				
+			move(J[ nonempty(J, mt) ], J[mt]); 
+
+		}
+		else{
+			int max = exchange(J);	
+			printf("max = %i", max);		
+			break; 
+		}
+		mt = empty(J);
+
+	    	printf("\n----------------------------------------------------------\n");
+		for( int k = 0; k < 3; k++ ){ show(J[k], 0); }
+
+	}
+	destroy(J[1]);
+       	destroy(J[2]);
+
+}
+
 # endif
