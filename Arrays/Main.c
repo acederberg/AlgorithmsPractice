@@ -38,6 +38,10 @@ void test_newArray(bool test_destroy){
         printf("\nNumber of `1`s in array = %i.\n", count(A, 1) );
         printf("\n(Number of entries between 0 and 10) = %i.\n", count(A, 0, 10) );
 
+	printf("\nSorting A... A = \n ");
+	naiveSort(A);
+	show(A);
+
         printf("\nDestroying A. Will attempt to show post destroy.\n");
         destroy(A);
 

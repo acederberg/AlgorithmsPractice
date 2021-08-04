@@ -54,7 +54,6 @@ void SuperDemo(){
 
  	}
 
-<<<<<<< HEAD
  	int mins[] = {0, 10, 100};
  	int maxs[] = {10, 100, 1000};
 
@@ -63,7 +62,6 @@ void SuperDemo(){
  		show(S, 1);
  	}
 
-=======
 // 	int mins[] = {0, 10, 100};
 // 	int maxs[] = {10, 100, 1000};
 //
@@ -72,7 +70,6 @@ void SuperDemo(){
 // 		show(S, 1);
 // 	}
 //
->>>>>>> refs/remotes/origin/main
 }
 
 // void SuperDemo0(){
