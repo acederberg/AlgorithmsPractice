@@ -1,15 +1,32 @@
 #include "Queue.h"
 
 
-int main(){
+Queue* makedummy(){
 
 
-	Node* N = newNode( "fake" );
+	Node* N = newNode( "I'll" );
 
 	Queue* Q = newQueue(N);
-	
-	show(Q->last);
-	show(Q->last->next);
+	queue(Q, "take");
+	queue(Q, "liveleak");
+	queue(Q, "over");
+	queue(Q, "linkedin");
+	queue(Q, ".");
+
+
+	return Q;
+
+}
+
+int main(){
+
+	Queue* Q = makedummy();
+	show(Q);
+
+	dequeue(Q);
+
+	show(Q);
+
 
 	return 0;
 
