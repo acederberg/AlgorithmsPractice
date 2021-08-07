@@ -1,0 +1,62 @@
+# include <memory>
+
+// The graph represented by DUMMY
+//	
+//	1 ------- 4---------+
+//	|         |   	    |
+//	|         |         |
+//	|         |         |
+//	2 ------- 3 ------- 5
+
+int DUMMY[5][5] = {
+	{ 0,  1,  0,  1,  0 },
+	{ 1,  0,  1,  0,  0 }, 
+	{ 0,  1,  0,  1,  1 },
+	{ 1,  0,  1,  0,  1 },
+	{ 0,  0,  1,  1,  0 }
+};
+int start = 0;
+int size = 5;
+
+int* solve(){
+
+	// The `k`th distance will be the `k`th value of `distances`. Weather a node has been used or not is determined by used.
+	// Initializing distances this way so that we can return distances.
+	int* distances = ( int * )malloc( sizeof(int) * size );
+	for ( int k = 0; k < 5; k++ ){
+	
+		distances[k] = -1;
+
+	}
+	bool used[ size ];
+
+	// Get layer around start
+	for (int k = 0; k < size; k++){
+		
+		if ( !used[k] && DUMMY[0, k] ){
+
+			if ( distances[k] == -1 ){
+				distances[k] = 1;
+			}
+		}
+	}
+
+	return distances;
+
+}
+
+void show(int* distances){
+	printf("[ ");
+	for ( int k = 0; k < 5; k++ ){
+		printf("%i, ", k);
+	}
+	printf("] ");
+}
+
+int main(){
+	
+	int* distances = solve();
+	show(distances);
+
+	return 0;
+}
