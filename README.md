@@ -28,7 +28,7 @@ Some reusable nodes implemented in `C` that I will start to use at some point.
 
 ## HackerRankProblems
 
-Here I solve some HackerRank problems mostly pertaining to graphs and trees.
+Here I solve some HackerRank problems mostly in `Python` (because it is easy and fast to do it this way as opposed to `C`) mostly pertaining to graphs and trees.
 
 # Comming soon...
 
@@ -38,4 +38,4 @@ This is easy and is implemented in the queue class. However I would still like t
 
 ## Graphs
 
-Some python classes defining various types of graphs using a base class which is really just a wrapper for adjacency matrix. That is, graphs phrased in terms of the adjacency matrix. While classes exist and work, this is not my priority right now.
+Some `Python` classes defining various types of graphs using a base class which is really just a wrapper for adjacency matrix. That is, graphs phrased in terms of the adjacency matrix. While classes exist and work, this is not my priority right now. However, I will still go back and finish the `Dijkstra` methods after I have done so with C.
