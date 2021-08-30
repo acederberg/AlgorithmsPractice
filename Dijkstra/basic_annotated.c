@@ -104,8 +104,6 @@ int* solve(){
 }
 
 int main(){
-	
 	int* distances = solve();
-
 	return 0;
 }
